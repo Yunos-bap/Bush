@@ -1,1 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #2d5a27; /* Grønt gress */
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
 
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    border: 10px solid #3e2723; /* En hagekant */
+}
+
+#player {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    transition: transform 0.1s;
+    z-index: 10;
+}
+
+#player img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Visuell effekt når du "stivner" som en busk */
+.bush-mode {
+    filter: brightness(0.9);
+    transform: scale(0.95);
+}
+
+#bjarne {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.speech-bubble {
+    font-size: 14px;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin-bottom: 5px;
+    display: none; /* Skjult helt til han blir paranoid */
+}
+
+#ui {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+}
