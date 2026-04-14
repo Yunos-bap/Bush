@@ -3,8 +3,8 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Hindrer scrollbars */
-    background-color: #3e7d37;
+    overflow: hidden; 
+    background-color: #ffffff; /* Hvit bakgrunn utenfor tegningen */
 }
 
 #viewport {
@@ -15,16 +15,17 @@ body, html {
 
 #world {
     position: absolute;
-    width: 10000px; /* Midlertidig stor verden */
-    height: 10000px;
-    /* Et enkelt gressmønster så du ser at du beveger deg */
-    background-image: radial-gradient(#4da145 10%, transparent 10%);
-    background-size: 100px 100px;
+    width: 3000px; /* Dette er bredden på hele tutorial-banen */
+    height: 1500px; /* Høyden på banen */
+    
+    /* Legger inn tegningen din som bakgrunn */
+    background-image: url('image/IMG_0672.png');
+    background-size: cover; 
+    background-position: center;
 }
 
 #player {
     position: absolute;
-    /* Proposjonal størrelse som i "Thank Goodness You're Here" */
     height: 15vh; 
     width: auto;
     z-index: 100;
@@ -34,7 +35,7 @@ body, html {
 }
 
 #player img {
-    height: 100%; /* Fyller player-diven sin høyde */
+    height: 100%; 
     width: auto;
 }
 
@@ -43,15 +44,10 @@ body, html {
     transform: scale(0.95);
 }
 
-#bjarne {
-    position: absolute;
-    font-size: 8vh;
-    text-align: center;
-}
-
+/* UI og Dialog */
 #ui {
     position: fixed;
-    bottom: 20px;
+    bottom: 180px; /* Flyttet litt opp så den ikke krasjer med dialogboksen */
     left: 50%;
     transform: translateX(-50%);
     background: white;
@@ -71,7 +67,7 @@ body, html {
     height: 150px;
     background: white;
     border: 4px solid black;
-    display: none; /* Skjult som standard */
+    display: none; 
     flex-direction: row;
     align-items: center;
     padding: 20px;
