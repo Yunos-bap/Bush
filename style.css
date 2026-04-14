@@ -1,103 +1,20 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; 
-    background-color: #ffffff; /* Hvit bakgrunn utenfor tegningen */
-}
-
-#viewport {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-}
-
 #world {
     position: absolute;
-    width: 3000px; /* Dette er bredden på hele tutorial-banen */
-    height: 1500px; /* Høyden på banen */
-    
-    /* Legger inn tegningen din som bakgrunn */
+    /* Vi setter en fast størrelse som matcher et vanlig bilde-format */
+    width: 2000px; 
+    height: 1200px;
     background-image: url('image/IMG_0672.png');
-    background-size: cover; 
-    background-position: center;
-}
-
-#player {
-    position: absolute;
-    height: 15vh; 
-    width: auto;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#player img {
-    height: 100%; 
-    width: auto;
-}
-
-.bush-mode {
-    filter: brightness(0.8) saturate(1.2);
-    transform: scale(0.95);
-}
-
-/* UI og Dialog */
-#ui {
-    position: fixed;
-    bottom: 180px; /* Flyttet litt opp så den ikke krasjer med dialogboksen */
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 10px 20px;
-    border: 3px solid black;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-}
-
-#dialog-container {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 800px;
-    height: 150px;
-    background: white;
-    border: 4px solid black;
-    display: none; 
-    flex-direction: row;
-    align-items: center;
-    padding: 20px;
-    z-index: 1000;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-#dialog-portrait {
-    width: 100px;
-    height: 100px;
-    border: 3px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    margin-right: 20px;
-    background: #eee;
-}
-
-#dialog-content {
-    flex: 1;
-}
-
-#dialog-name {
-    margin: 0 0 10px 0;
-    text-decoration: underline;
+    background-size: 100% 100%; /* Strekker bildet til å fylle hele world-boksen */
+    background-repeat: no-repeat;
 }
 
 #dialog-text {
     margin: 0;
     font-size: 18px;
     line-height: 1.4;
+    white-space: normal;       /* Sikrer at ordene hopper til neste linje */
+    word-wrap: break-word;     /* Bryter lange ord */
+    overflow-wrap: break-word;
+    display: block;
+    width: 100%;               /* Holder teksten inni boksen */
 }
