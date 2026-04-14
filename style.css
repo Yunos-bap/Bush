@@ -1,20 +1,25 @@
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+
+#viewport { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
 #world {
     position: absolute;
-    /* Vi setter en fast størrelse som matcher et vanlig bilde-format */
-    width: 2000px; 
-    height: 1200px;
+    width: 3000px; /* Bredden på din verden */
+    height: 1500px;
     background-image: url('image/IMG_0672.png');
-    background-size: 100% 100%; /* Strekker bildet til å fylle hele world-boksen */
-    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
-#dialog-text {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.4;
-    white-space: normal;       /* Sikrer at ordene hopper til neste linje */
-    word-wrap: break-word;     /* Bryter lange ord */
-    overflow-wrap: break-word;
-    display: block;
-    width: 100%;               /* Holder teksten inni boksen */
+#player {
+    position: absolute;
+    height: 100px; /* Fast størrelse på busken */
+    width: 100px;
+    z-index: 100;
 }
+
+#player img { width: 100%; height: 100%; }
+
+.bush-mode { filter: brightness(0.5); transform: scale(0.9); }
+
+#blind-man { position: absolute; height: 150px; width: 150px; z-index: 90; }
+#blind-man img { width: 100%; height: 100%; }
