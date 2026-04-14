@@ -6,7 +6,7 @@ body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
     position: absolute;
     width: 3000px; /* Bredden på din verden */
     height: 1500px;
-    background-image: url('image/IMG_0672.png');
+    background-image: url('image/IMG_0673.webp');
     background-size: 100% 100%;
 }
 
