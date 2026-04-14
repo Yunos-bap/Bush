@@ -60,3 +60,48 @@ body, html {
     font-family: 'Courier New', monospace;
     font-weight: bold;
 }
+
+#dialog-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 150px;
+    background: white;
+    border: 4px solid black;
+    display: none; /* Skjult som standard */
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#dialog-portrait {
+    width: 100px;
+    height: 100px;
+    border: 3px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    margin-right: 20px;
+    background: #eee;
+}
+
+#dialog-content {
+    flex: 1;
+}
+
+#dialog-name {
+    margin: 0 0 10px 0;
+    text-decoration: underline;
+}
+
+#dialog-text {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+}
