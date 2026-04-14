@@ -22,6 +22,14 @@ function gameLoop() {
         if (keys['a'] || keys['arrowleft']) posX -= speed;
         if (keys['d'] || keys['arrowright']) posX += speed;
 
+        // Juster disse tallene basert på hvor på skjermen muren og bunnlinjen er
+        const minY = 200; // Grensen for muren øverst
+        const maxY = 600; // Grensen for streken nederst
+
+        // Sjekker om spilleren prøver å gå utenfor grensene
+        if (posY < minY) posY = minY;
+        if (posY > maxY) posY = maxY;
+
         // Oppdater buskens posisjon i verden
         player.style.left = posX + 'px';
         player.style.top = posY + 'px';
