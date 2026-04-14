@@ -66,17 +66,86 @@ function sjekkTutorialLogikk() {
 
     // SCENARIO C: Beveger seg, fanges opp på lengre avstand
     if (!isHidden && isMoving && distance < 500 && distance > 0) {
-        visDialog("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
         tutorialTriggered = true;
     }
     // SCENARIO B: Står stille, men ikke gjemt, fanges opp på kort avstand
     else if (!isHidden && !isMoving && distance < 250 && distance > 0) {
-        visDialog("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
         tutorialTriggered = true;
     }
     // SCENARIO A: Gjemt, mannen har gått trygt forbi
     else if (isHidden && distance < -100) {
-        visDialog("Good job, it seems you’ve already got the hang of it.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("Good job, it seems you’ve already got the hang of it.");
         tutorialTriggered = true;
     }
     const dialogContainer = document.getElementById('dialog-container');
@@ -112,17 +181,86 @@ function sjekkTutorialLogikk() {
 
     // Scenario C: Beveger seg
     if (!isHidden && isMoving && distance < 500 && distance > 0) {
-        visDialog("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
         tutorialTriggered = true;
     } 
     // Scenario B: Står stille, men ikke gjemt
     else if (!isHidden && !isMoving && distance < 250 && distance > 0) {
-        visDialog("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
         tutorialTriggered = true;
     }
     // Scenario A: Gjemt og mannen har passert
     else if (isHidden && distance < -100) {
-        visDialog("Good job, it seems you’ve already got the hang of it.");
+        let dialogIndex = 0;
+let isTyping = false;
+const typingSpeed = 30; // Millisekunder per bokstav (lavere tall = raskere)
+
+function visDialog(tekst) {
+    if (isTyping) return; // Ikke start på nytt hvis den allerede skriver
+    
+    dialogContainer.style.display = 'flex';
+    dialogText.innerText = ""; // Tøm boksen før vi starter
+    isDialogOpen = true;
+    isTyping = true;
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < tekst.length) {
+            dialogText.innerText += tekst.charAt(i);
+            i++;
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            isTyping = false; // Ferdig med å skrive
+        }
+    }
+    typeWriter();
+}("Good job, it seems you’ve already got the hang of it.");
         tutorialTriggered = true;
     }
 }
