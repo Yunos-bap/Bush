@@ -50,6 +50,43 @@ function gameLoop() {
 
 gameLoop();
 
+let tutorialTriggered = false;
+let blindManX = 2000; // Starter utenfor skjermen til høyre
+
+function sjekkTutorialLogikk() {
+    // Ikke gjør noe hvis tutorial er ferdig eller dialogen er åpen
+    if (tutorialTriggered || isDialogOpen) return;
+
+    const blindMan = document.getElementById('blind-man');
+    if (!blindMan) return;
+
+    // Beveg mannen mot venstre (starter når spilleren er klar)
+    blindManX -= 2.5; 
+    blindMan.style.left = blindManX + 'px';
+
+    // Finn avstanden mellom mannen og busken
+    let distance = blindManX - posX;
+
+    // SCENARIO C: Mannen kommer nær mens busken beveger seg
+    // Vi bruker en lengre avstand (f.eks 500px) som "trigger" her
+    if (!isHidden && isMoving && distance < 500 && distance > 0) {
+        visDialog("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
+        tutorialTriggered = true;
+    } 
+    
+    // SCENARIO B: Mannen kommer nær mens busken står stille (men ikke gjemt)
+    // Bruker en kortere avstand (f.eks 200px)
+    else if (!isHidden && !isMoving && distance < 200 && distance > 0) {
+        visDialog("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
+        tutorialTriggered = true;
+    }
+
+    // SCENARIO A: Mannen har gått forbi (-150px) og spilleren gjemte seg
+    else if (isHidden && distance < -150) {
+        visDialog("Good job, it seems you’ve already got the hang of it.");
+        tutorialTriggered = true;
+    }
+}
 const blindMan = document.getElementById('blind-man');
 let blindManX = 2000; // Startposisjon langt til høyre
 let tutorialTriggered = false; // Sikrer at dialogen bare skjer én gang
