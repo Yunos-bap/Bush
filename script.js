@@ -79,4 +79,52 @@ function sjekkTutorialLogikk() {
         visDialog("Good job, it seems you’ve already got the hang of it.");
         tutorialTriggered = true;
     }
+    const dialogContainer = document.getElementById('dialog-container');
+const dialogText = document.getElementById('dialog-text');
+let isDialogOpen = false;
+
+// Funksjon for å vise dialog
+function visDialog(tekst) {
+    dialogText.innerText = tekst;
+    dialogContainer.style.display = 'flex';
+    isDialogOpen = true;
+    // Vi kan stoppe spillet her hvis du vil ved å sette speed = 0
 }
+
+// Lukk dialog med SPACE
+window.addEventListener('keydown', (e) => {
+    if (e.key === ' ' && isDialogOpen) {
+        dialogContainer.style.display = 'none';
+        isDialogOpen = false;
+        // Her kan du starte Blind Man-bevegelsen hvis den var pauset
+    }
+});
+
+// Tutorial-sjekk (Kjør denne i gameLoop)
+function sjekkTutorialLogikk() {
+    if (tutorialTriggered || isDialogOpen) return;
+
+    // Oppdater Blind Man sin posisjon
+    blindManX -= 2; 
+    document.getElementById('blind-man').style.left = blindManX + 'px';
+
+    let distance = blindManX - posX;
+
+    // Scenario C: Beveger seg
+    if (!isHidden && isMoving && distance < 500 && distance > 0) {
+        visDialog("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
+        tutorialTriggered = true;
+    } 
+    // Scenario B: Står stille, men ikke gjemt
+    else if (!isHidden && !isMoving && distance < 250 && distance > 0) {
+        visDialog("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
+        tutorialTriggered = true;
+    }
+    // Scenario A: Gjemt og mannen har passert
+    else if (isHidden && distance < -100) {
+        visDialog("Good job, it seems you’ve already got the hang of it.");
+        tutorialTriggered = true;
+    }
+}
+}
+
