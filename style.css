@@ -1,28 +1,41 @@
+body, html {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;         /* Stopper all rulling (scrolling) */
+    background-color: #000;   /* Svart bakgrunn utenfor tegningen */
+    touch-action: none;       /* Stopper iPad i å glitche/zoome med touch */
+    user-select: none;        /* Stopper tekstmarkering */
+}
+
+#viewport {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
 #world {
     position: absolute;
-    /* Juster disse til de passer bildet ditt perfekt */
-    width: 2000px; 
-    height: 1000px; 
+    width: 2500px; /* Lengden på hele tegningen */
+    height: 1200px; /* Høyden på hele tegningen */
     background-image: url('image/IMG_0673.webp');
-    background-size: 100% 100%; /* Gjør at bildet fyller boksen nøyaktig */
+    background-size: 100% 100%;
     background-repeat: no-repeat;
+    transform-origin: 0 0; /* Superviktig for at kameraet skal treffe riktig! */
 }
 
 #player {
     position: absolute;
     width: 80px;
+    height: 80px;
     z-index: 10;
 }
 
 #blind-man {
     position: absolute;
-    /* Vi plasserer ham 1200 piksler til høyre og 500 ned */
-    left: 1200px; 
-    top: 550px; 
     width: 100px;
+    height: 150px;
     z-index: 5;
 }
 
-#blind-man img, #player img {
-    width: 100%;
-}
+img { width: 100%; height: 100%; object-fit: contain; }
