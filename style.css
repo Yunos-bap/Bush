@@ -1,25 +1,32 @@
-body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
-
-#viewport { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+/* Sørg for at viewport er riktig størrelse */
+#viewport {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
 
 #world {
     position: absolute;
-    width: 3000px; /* Bredden på din verden */
-    height: 1500px;
-    background-image: url('image/IMG_0673.webp');
-    background-size: 100% 100%;
+    width: 2000px; /* Redusert fra 3000px for at den skal være mer håndterbar */
+    height: 800px;
+    background-image: url('image/IMG_0673.webp'); /* Sjekk at navnet stemmer */
+    background-size: contain; /* Endret fra 100% 100% for å ikke strekke bildet feil */
+    background-repeat: no-repeat;
 }
 
 #player {
     position: absolute;
-    height: 100px; /* Fast størrelse på busken */
-    width: 100px;
-    z-index: 100;
+    width: 80px; /* Gjør busken litt mindre så den passer i tegningen */
+    z-index: 5;
 }
 
-#player img { width: 100%; height: 100%; }
+#blind-man {
+    position: absolute;
+    left: 1500px; /* Plasserer ham synlig inne i 'verdenen' */
+    top: 400px;   /* Juster denne verdien for å få ham på riktig høyde */
+    width: 120px;
+    z-index: 10;
+}
 
-.bush-mode { filter: brightness(0.5); transform: scale(0.9); }
-
-#blind-man { position: absolute; height: 150px; width: 150px; z-index: 90; }
-#blind-man img { width: 100%; height: 100%; }
+img { width: 100%; }
