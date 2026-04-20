@@ -21,21 +21,21 @@ body, html {
     background-image: url('image/IMG_0673.webp');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    transform-origin: 0 0; /* Superviktig for at kameraet skal treffe riktig! */
+    transform-origin: 0 0; 
 }
 
 #player {
     position: absolute;
     width: 80px;
     height: 80px;
-    z-index: 10;
+    z-index: 10; /* Busken er foran mannen */
 }
 
 #blind-man {
     position: absolute;
     width: 100px;
     height: 150px;
-    z-index: 5;
+    z-index: 5; /* Mannen er bak busken */
 }
 
 img { width: 100%; height: 100%; object-fit: contain; }
