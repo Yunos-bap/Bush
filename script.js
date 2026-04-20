@@ -1,7 +1,7 @@
-// STARTPOSISJONER
+// --- STARTPOSISJONER ---
 let posX = 500, posY = 600; // Busken starter her
-let blindManX = 900;        // Mannen starter litt til høyre for deg!
-let blindManY = 550;        // Mannens høyde på skjermen
+let blindManX = 700;        // Mannen starter NÆRME deg!
+let blindManY = 600;        // Mannen starter på samme høyde som deg!
 
 let keys = {};
 const player = document.getElementById('player');
@@ -18,9 +18,9 @@ function gameLoop() {
     if (keys['a'] || keys['arrowleft']) posX -= 5;
     if (keys['d'] || keys['arrowright']) posX += 5;
 
-    // Her er grensene dine! Endre disse tallene for å treffe muren din perfekt.
-    let øversteMurGrense = 450;  // Busken stopper her når den går OPP
-    let nedersteTegningGrense = 1000; // Busken stopper her når den går NED
+    // Her er murene (Juster disse hvis busken kan gå for langt opp eller ned)
+    let øversteMurGrense = 450;  
+    let nedersteTegningGrense = 1000; 
     let venstreGrense = 0;
     let høyreGrense = 2400; 
 
@@ -46,13 +46,12 @@ function gameLoop() {
     }
 
 
-    // --- 4. DET PERFEKTE KAMERAET ---
-    // Dette tvinger kameraet til å ALLTID ha busken i midten, uten å glitche.
+    // --- 4. KAMERAET ---
     if (world) {
         let skjermMidtX = window.innerWidth / 2;
         let skjermMidtY = window.innerHeight / 2;
 
-        // Vi trekker fra 40 for å sentrere akkurat på midten av busken (siden den er 80px stor)
+        // Sentrer kameraet på busken
         let camX = skjermMidtX - posX - 40;
         let camY = skjermMidtY - posY - 40;
 
