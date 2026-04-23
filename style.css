@@ -2,7 +2,7 @@ body, html {
     margin: 0; padding: 0;
     width: 100%; height: 100%;
     overflow: hidden;         /* Stopper all rulling (scrolling) */
-    background-color: #000;   /* Svart bakgrunn utenfor tegningen */
+    background-color: #fff;   /* Svart bakgrunn utenfor tegningen */
     touch-action: none;       /* Stopper iPad i å glitche/zoome med touch */
     user-select: none;        /* Stopper tekstmarkering */
 }
@@ -39,3 +39,26 @@ body, html {
 }
 
 img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Stil for når busken gjemmer seg */
+.hidden-mode {
+    filter: brightness(0.7) contrast(1.2); /* Gjør den litt mørkere */
+    transform: scale(0.95); /* Krymper den bittelitt */
+    transition: 0.2s;
+}
+
+/* Dialogboksen som dukker opp */
+#dialog-box {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    display: none; /* Skjult som standard */
+    z-index: 2000;
+}
