@@ -62,3 +62,38 @@ img { width: 100%; height: 100%; object-fit: contain; }
     display: none; /* Skjult som standard */
     z-index: 2000;
 }
+/* --- ROM-SYSTEM KODE --- */
+
+/* Svart skjerm som fader inn/ut ved rombytte */
+#fade-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s; /* Hastigheten på overgangen */
+    z-index: 9999; /* Ligger over alt annet */
+}
+
+#fade-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Fast størrelse på spilleren (Undertale-stil) */
+#player {
+    position: absolute;
+    width: 60px; /* Her bestemmer du hvor stor busken skal være i alle rom */
+    height: 60px;
+    z-index: 100;
+}
+
+/* Gjør at bakgrunnen i #world ikke repeterer seg hvis bildet er lite */
+#world {
+    background-repeat: no-repeat;
+    background-size: contain; 
+    background-position: center;
+}
