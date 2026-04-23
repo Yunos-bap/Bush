@@ -1,96 +1,67 @@
-// 1. DEFINISJON AV ROM
 const rooms = {
     "skogen": {
-        width: 2500,
-        height: 1200,
-        bg: "image/IMG_0673.webp",
-        playerStart: { x: 500, y: 600 }
-    },
-    "huset": {
-        width: 800,  // Et lite rom
-        height: 600,
-        bg: "image/ditt_nye_bilde.png", // Bytt ut når du er klar
-        playerStart: { x: 400, y: 300 }
+        width: 2500, // Bredden på bildet ditt
+        height: 1200, // Høyden på bildet ditt
+        bg: "image/IMG_0673.webp"
     }
 };
 
 let currentRoom = rooms["skogen"];
-let posX = currentRoom.playerStart.x;
-let posY = currentRoom.playerStart.y;
-let keys = {};
+let posX = 500, posY = 600;
+let blindManX = 1800; // Mannen starter langt til høyre
+let blindManY = 600;
 
 const player = document.getElementById('player');
 const world = document.getElementById('world');
-const fadeOverlay = document.getElementById('fade-overlay');
+const blindMan = document.getElementById('blind-man');
 
-// 2. FUNKSJON FOR Å BYTTE ROM (Med Undertale-fade)
-function changeRoom(roomId) {
-    fadeOverlay.classList.add('active');
-    
-    setTimeout(() => {
-        currentRoom = rooms[roomId];
-        
-        // Oppdater verdenen
-        world.style.width = currentRoom.width + "px";
-        world.style.height = currentRoom.height + "px";
-        world.style.backgroundImage = `url('${currentRoom.bg}')`;
-        
-        // Flytt spilleren til startposisjon i nytt rom
-        posX = currentRoom.playerStart.x;
-        posY = currentRoom.playerStart.y;
-        
-        // Fjern faden
-        setTimeout(() => {
-            fadeOverlay.classList.remove('active');
-        }, 500);
-    }, 1000); // 1 sekund svart skjerm
-}
-
-// 3. INPUT
+let keys = {};
 window.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
 window.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 
-// 4. GAME LOOP
 function gameLoop() {
     // Bevegelse
-    if (keys['w'] || keys['arrowup']) posY -= 5;
-    if (keys['s'] || keys['arrowdown']) posY += 5;
-    if (keys['a'] || keys['arrowleft']) posX -= 5;
-    if (keys['d'] || keys['arrowright']) posX += 5;
+    if (keys['w']) posY -= 5;
+    if (keys['s']) posY += 5;
+    if (keys['a']) posX -= 5;
+    if (keys['d']) posX += 5;
 
-    // GRENSER (Stopp ved kanten av bakgrunnen)
+    // 1. STOPP SPILLEREN VED KANTEN AV BILDET
     if (posX < 0) posX = 0;
-    if (posY < 0) posY = 0;
-    if (posX > currentRoom.width - 60) posX = currentRoom.width - 60;
-    if (posY > currentRoom.height - 60) posY = currentRoom.height - 60;
+    if (posY < 450) posY = 450; // Mur-kanten din
+    if (posX > currentRoom.width - 80) posX = currentRoom.width - 80;
+    if (posY > currentRoom.height - 80) posY = currentRoom.height - 80;
 
-    // Oppdater spiller
-    player.style.left = posX + 'px';
-    player.style.top = posY + 'px';
+    // 2. FLYTT MANNEN (Han går sakte mot venstre)
+    blindManX -= 1.5;
+    if (blindMan) {
+        blindMan.style.left = blindManX + 'px';
+        blindMan.style.top = blindManY + 'px';
+    }
 
-    // 5. SMART KAMERA (Undertale-stil)
+    // 3. SMART KAMERA (Låser seg til kantene)
     let camX = (window.innerWidth / 2) - posX;
     let camY = (window.innerHeight / 2) - posY;
 
-    // Hvis rommet er MINDRE enn skjermen -> Senterer rommet
-    if (currentRoom.width < window.innerWidth) {
-        camX = (window.innerWidth - currentRoom.width) / 2;
-    } else {
-        // Hvis rommet er STØRRE -> Følg karakteren, men stopp ved kantene
-        if (camX > 0) camX = 0; // Ikke vis tomrom til venstre
-        if (camX < window.innerWidth - currentRoom.width) camX = window.innerWidth - currentRoom.width; // Ikke vis tomrom til høyre
-    }
+    // Stopper kamera fra å vise "hvit verden" til venstre/topp
+    if (camX > 0) camX = 0;
+    if (camY > 0) camY = 0;
 
-    if (currentRoom.height < window.innerHeight) {
-        camY = (window.innerHeight - currentRoom.height) / 2;
-    } else {
-        if (camY > 0) camY = 0; // Ikke vis tomrom over
-        if (camY < window.innerHeight - currentRoom.height) camY = window.innerHeight - currentRoom.height; // Ikke vis tomrom under
-    }
+    // Stopper kamera fra å vise "hvit verden" til høyre/bunn
+    let maxCamX = window.innerWidth - currentRoom.width;
+    let maxCamY = window.innerHeight - currentRoom.height;
+    if (camX < maxCamX) camX = maxCamX;
+    if (camY < maxCamY) camY = maxCamY;
 
+    // Oppdater posisjoner
+    world.style.backgroundImage = `url('${currentRoom.bg}')`;
+    world.style.width = currentRoom.width + "px";
+    world.style.height = currentRoom.height + "px";
     world.style.transform = `translate(${camX}px, ${camY}px)`;
+    
+    player.style.left = posX + 'px';
+    player.style.top = posY + 'px';
 
     requestAnimationFrame(gameLoop);
 }
-
 gameLoop();
