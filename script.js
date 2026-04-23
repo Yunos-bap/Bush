@@ -23,7 +23,7 @@ function visDialog(tekst) {
 
 function gameLoop() {
     // --- 1. HIDE-FUNKSJON (H-tast) ---
-    if (keys['h']) {
+    if (keys['control']) {
         isHidden = true;
         player.classList.add('hidden-mode');
     } else {
