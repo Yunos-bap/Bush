@@ -1,91 +1,94 @@
-let posX = 500, posY = 600;
-let blindManX = 1200; // Mannen starter her til høyre for deg
-let isHidden = false;
-let isMoving = false;
-let tutorialTriggered = false;
-let visibilityCounter = 0; 
-const framesToWait = 180; // 3 sekunder
+// 1. DEFINISJON AV ROM
+const rooms = {
+    "skogen": {
+        width: 2500,
+        height: 1200,
+        bg: "image/IMG_0673.webp",
+        playerStart: { x: 500, y: 600 }
+    },
+    "huset": {
+        width: 800,  // Et lite rom
+        height: 600,
+        bg: "image/ditt_nye_bilde.png", // Bytt ut når du er klar
+        playerStart: { x: 400, y: 300 }
+    }
+};
 
+let currentRoom = rooms["skogen"];
+let posX = currentRoom.playerStart.x;
+let posY = currentRoom.playerStart.y;
 let keys = {};
+
 const player = document.getElementById('player');
 const world = document.getElementById('world');
-const blindMan = document.getElementById('blind-man');
-const dialogBox = document.getElementById('dialog-box');
-const dialogText = document.getElementById('dialog-text');
+const fadeOverlay = document.getElementById('fade-overlay');
 
+// 2. FUNKSJON FOR Å BYTTE ROM (Med Undertale-fade)
+function changeRoom(roomId) {
+    fadeOverlay.classList.add('active');
+    
+    setTimeout(() => {
+        currentRoom = rooms[roomId];
+        
+        // Oppdater verdenen
+        world.style.width = currentRoom.width + "px";
+        world.style.height = currentRoom.height + "px";
+        world.style.backgroundImage = `url('${currentRoom.bg}')`;
+        
+        // Flytt spilleren til startposisjon i nytt rom
+        posX = currentRoom.playerStart.x;
+        posY = currentRoom.playerStart.y;
+        
+        // Fjern faden
+        setTimeout(() => {
+            fadeOverlay.classList.remove('active');
+        }, 500);
+    }, 1000); // 1 sekund svart skjerm
+}
+
+// 3. INPUT
 window.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
 window.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 
-function visDialog(tekst) {
-    dialogText.innerText = tekst;
-    dialogBox.style.display = 'block';
-}
-
+// 4. GAME LOOP
 function gameLoop() {
-    // --- 1. HIDE-FUNKSJON (Ctrl-tast) ---
-    if (keys['control'] || keys['controlleft'] || keys['controlright']) { 
-        isHidden = true;
-        player.classList.add('hidden-mode');
-    } else {
-        isHidden = false;
-        player.classList.remove('hidden-mode');
-    }
+    // Bevegelse
+    if (keys['w'] || keys['arrowup']) posY -= 5;
+    if (keys['s'] || keys['arrowdown']) posY += 5;
+    if (keys['a'] || keys['arrowleft']) posX -= 5;
+    if (keys['d'] || keys['arrowright']) posX += 5;
 
-    // --- 2. BEVEGELSE & GRENSER FOR BUSKEN ---
-    isMoving = false;
-    if (keys['w'] || keys['arrowup']) { posY -= 5; isMoving = true; }
-    if (keys['s'] || keys['arrowdown']) { posY += 5; isMoving = true; }
-    if (keys['a'] || keys['arrowleft']) { posX -= 5; isMoving = true; }
-    if (keys['d'] || keys['arrowright']) { posX += 5; isMoving = true; }
-
-    if (posY < 450) posY = 450;
-    if (posY > 1000) posY = 1000;
+    // GRENSER (Stopp ved kanten av bakgrunnen)
     if (posX < 0) posX = 0;
-    if (posX > 2400) posX = 2400;
+    if (posY < 0) posY = 0;
+    if (posX > currentRoom.width - 60) posX = currentRoom.width - 60;
+    if (posY > currentRoom.height - 60) posY = currentRoom.height - 60;
 
-    // --- 3. MANNEN BEVEGER SEG ---
-    // Her er koden som manglet! Den dytter ham mot venstre hver frame.
-    blindManX -= 1.5; 
-    if (blindMan) {
-        blindMan.style.left = blindManX + 'px';
-        blindMan.style.top = '600px'; // Holder ham på riktig høyde
+    // Oppdater spiller
+    player.style.left = posX + 'px';
+    player.style.top = posY + 'px';
+
+    // 5. SMART KAMERA (Undertale-stil)
+    let camX = (window.innerWidth / 2) - posX;
+    let camY = (window.innerHeight / 2) - posY;
+
+    // Hvis rommet er MINDRE enn skjermen -> Senterer rommet
+    if (currentRoom.width < window.innerWidth) {
+        camX = (window.innerWidth - currentRoom.width) / 2;
+    } else {
+        // Hvis rommet er STØRRE -> Følg karakteren, men stopp ved kantene
+        if (camX > 0) camX = 0; // Ikke vis tomrom til venstre
+        if (camX < window.innerWidth - currentRoom.width) camX = window.innerWidth - currentRoom.width; // Ikke vis tomrom til høyre
     }
 
-    // --- 4. TUTORIAL LOGIKK ---
-    let distance = blindManX - posX;
-
-    if (distance < 800 && distance > -200 && !tutorialTriggered) {
-        visibilityCounter++;
-        
-        if (visibilityCounter > framesToWait) {
-            if (!isHidden && isMoving && distance < 400 && distance > 0) {
-                visDialog("WOW. He must be both blind and deaf. You got really lucky. For your own sake, do it properly next time.");
-                tutorialTriggered = true;
-            } 
-            else if (!isHidden && !isMoving && distance < 150 && distance > 0) {
-                visDialog("It appears that that man is legally blind, or just doesn’t give a damn. You got lucky. Do it properly next time.");
-                tutorialTriggered = true;
-            }
-        }
+    if (currentRoom.height < window.innerHeight) {
+        camY = (window.innerHeight - currentRoom.height) / 2;
+    } else {
+        if (camY > 0) camY = 0; // Ikke vis tomrom over
+        if (camY < window.innerHeight - currentRoom.height) camY = window.innerHeight - currentRoom.height; // Ikke vis tomrom under
     }
 
-    if (isHidden && distance < -300 && !tutorialTriggered) {
-        visDialog("Good job, it seems you’ve already got the hang of it.");
-        tutorialTriggered = true;
-    }
-
-    // --- 5. OPPDATER BUSKEN PÅ SKJERMEN ---
-    if (player) {
-        player.style.left = posX + 'px';
-        player.style.top = posY + 'px';
-    }
-
-    // --- 6. KAMERAET ---
-    if (world) {
-        let camX = (window.innerWidth / 2) - posX - 40;
-        let camY = (window.innerHeight / 2) - posY - 40;
-        world.style.transform = `translate(${camX}px, ${camY}px)`;
-    }
+    world.style.transform = `translate(${camX}px, ${camY}px)`;
 
     requestAnimationFrame(gameLoop);
 }
