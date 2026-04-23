@@ -1,89 +1,53 @@
-/* 1. GRUNNLEGGENDE OPPSETT (Beholdt fra din gamle kode) */
 body, html {
-    margin: 0; 
-    padding: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: hidden;         
-    background-color: #000;   /* Svart utenfor tegningen */
-    touch-action: none;       /* Stopper iPad-glitch */
-    user-select: none;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background-color: black; /* Dette gjør at alt utenfor tegningen blir svart */
 }
 
 #viewport {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
+    background: black;
 }
 
-/* 2. VERDEN (Viktig: Vi fjerner fast bredde/høyde her så JS kan styre det) */
 #world {
     position: absolute;
+    /* Dette sørger for at bakgrunnsbildet ditt ikke repeterer seg */
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    transform-origin: 0 0; 
+    background-size: cover; 
 }
 
-/* 3. BUSKEN (Tilbake til 80px og lagt til hiding-effekt) */
 #player {
     position: absolute;
-    width: 80px;
+    width: 80px; /* Fast størrelse på busken */
     height: 80px;
-    z-index: 100; /* Alltid foran mannen */
+    z-index: 100;
 }
 
-/* 4. MANNEN (Sørger for at han er synlig og har riktig størrelse) */
 #blind-man {
     position: absolute;
-    width: 100px;
+    width: 100px; /* Mannen er litt større enn busken */
     height: 150px;
     z-index: 50;
 }
 
-/* Felles for bildene */
-#player img, #blind-man img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
+img { width: 100%; height: 100%; object-fit: contain; }
 
-/* 5. EFFEKTER (Gjemming, overganger og dialog) */
-.hidden-mode {
-    filter: brightness(0.6); /* Gjør busken mørkere når du holder Ctrl */
-    transform: scale(0.95);
-    transition: 0.2s;
-}
-
-#fade-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: black;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s;
-    z-index: 9999;
-}
-
-#fade-overlay.active { 
-    opacity: 1; 
-    visibility: visible; 
-}
-
+/* Dialogboksen nederst */
 #dialog-box {
     position: fixed;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
+    border: 2px solid white;
     display: none;
     z-index: 2000;
-    font-family: sans-serif;
-    border: 2px solid white;
+    width: 80%;
 }
