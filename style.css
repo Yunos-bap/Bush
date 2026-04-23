@@ -1,10 +1,13 @@
+/* 1. GRUNNLEGGENDE OPPSETT (Beholdt fra din gamle kode) */
 body, html {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;         /* Stopper all rulling (scrolling) */
-    background-color: #fff;   /* Svart bakgrunn utenfor tegningen */
-    touch-action: none;       /* Stopper iPad i å glitche/zoome med touch */
-    user-select: none;        /* Stopper tekstmarkering */
+    margin: 0; 
+    padding: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: hidden;         
+    background-color: #000;   /* Svart utenfor tegningen */
+    touch-action: none;       /* Stopper iPad-glitch */
+    user-select: none;
 }
 
 #viewport {
@@ -14,86 +17,73 @@ body, html {
     position: relative;
 }
 
+/* 2. VERDEN (Viktig: Vi fjerner fast bredde/høyde her så JS kan styre det) */
 #world {
     position: absolute;
-    width: 2500px; /* Lengden på hele tegningen */
-    height: 1200px; /* Høyden på hele tegningen */
-    background-image: url('image/IMG_0673.webp');
-    background-size: 100% 100%;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
     transform-origin: 0 0; 
 }
 
+/* 3. BUSKEN (Tilbake til 80px og lagt til hiding-effekt) */
 #player {
     position: absolute;
     width: 80px;
     height: 80px;
-    z-index: 10; /* Busken er foran mannen */
+    z-index: 100; /* Alltid foran mannen */
 }
 
+/* 4. MANNEN (Sørger for at han er synlig og har riktig størrelse) */
 #blind-man {
     position: absolute;
     width: 100px;
     height: 150px;
-    z-index: 5; /* Mannen er bak busken */
+    z-index: 50;
 }
 
-img { width: 100%; height: 100%; object-fit: contain; }
+/* Felles for bildene */
+#player img, #blind-man img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+}
 
-/* Stil for når busken gjemmer seg */
+/* 5. EFFEKTER (Gjemming, overganger og dialog) */
 .hidden-mode {
-    filter: brightness(0.7) contrast(1.2); /* Gjør den litt mørkere */
-    transform: scale(0.95); /* Krymper den bittelitt */
+    filter: brightness(0.6); /* Gjør busken mørkere når du holder Ctrl */
+    transform: scale(0.95);
     transition: 0.2s;
 }
 
-/* Dialogboksen som dukker opp */
+#fade-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s;
+    z-index: 9999;
+}
+
+#fade-overlay.active { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
 #dialog-box {
     position: fixed;
-    bottom: 50px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
     padding: 20px;
     border-radius: 10px;
     width: 80%;
     max-width: 600px;
-    display: none; /* Skjult som standard */
+    display: none;
     z-index: 2000;
-}
-/* --- ROM-SYSTEM KODE --- */
-
-/* Svart skjerm som fader inn/ut ved rombytte */
-#fade-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: black;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s; /* Hastigheten på overgangen */
-    z-index: 9999; /* Ligger over alt annet */
-}
-
-#fade-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Fast størrelse på spilleren (Undertale-stil) */
-#player {
-    position: absolute;
-    width: 60px; /* Her bestemmer du hvor stor busken skal være i alle rom */
-    height: 60px;
-    z-index: 100;
-}
-
-/* Gjør at bakgrunnen i #world ikke repeterer seg hvis bildet er lite */
-#world {
-    background-repeat: no-repeat;
-    background-size: contain; 
-    background-position: center;
+    font-family: sans-serif;
+    border: 2px solid white;
 }
