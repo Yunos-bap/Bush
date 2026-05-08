@@ -42,12 +42,23 @@ function gameLoop() {
     if (keys['a']) posX -= speed;
     if (keys['d']) posX += speed;
 
-    // Grenser for spilleren (stopp ved bildekanten)
+    // --- OPPDATERTE GRENSER FOR BUSKEN ---
+    
+    // 1. Venstre kant
     if (posX < 0) posX = 0;
+    
+    // 2. Øverste kant (Muren/Trærne i bakgrunnen)
     if (posY < 450) posY = 450; 
+    
+    // 3. Høyre kant
     if (posX > currentRoom.width - 80) posX = currentRoom.width - 80;
-    if (posY > currentRoom.height - 80) posY = currentRoom.height - 80;
-
+    
+    // 4. Bunn-grense (Trærne på bunnen)
+    // Her sier vi at busken kan gå ned til bunnen minus ca. 100 piksler.
+    // Dette lar den gå "bak" trærne nederst uten å forsvinne helt.
+    let bottomLimit = currentRoom.height - 100; 
+    if (posY > bottomLimit) posY = bottomLimit;
+    
     // Mannens bevegelse
     blindManX -= 1.5;
     if (blindMan) {
