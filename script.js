@@ -33,7 +33,7 @@ function gameLoop() {
     if (posX > currentRoom.width - 80) posX = currentRoom.width - 80;
     
     // Bunn-grense: Stopper busken litt før bunnen av bildet
-    let bottomLimit = currentRoom.height - 180; 
+    let bottomLimit = currentRoom.height - 350; 
     if (posY > bottomLimit) posY = bottomLimit;
 
     // Kamera-logikk
@@ -47,7 +47,6 @@ function gameLoop() {
 
     // Oppdatering av bilder og posisjon
     world.style.backgroundImage = `url('${currentRoom.bg}')`;
-    foreground.style.backgroundImage = `url('${currentRoom.bg}')`;
     
     world.style.width = currentRoom.width + "px";
     world.style.height = currentRoom.height + "px";
