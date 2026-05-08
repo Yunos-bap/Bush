@@ -23,16 +23,18 @@ body, html {
 
 #foreground {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 150;
-    pointer-events: none;
-    
-    /* Brå overgang flyttet til 80% (lenger ned) */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 80%, black 80%);
-    mask-image: linear-gradient(to bottom, transparent 80%, black 80%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 150; /* Dette gjør at det ligger foran den grønne busken */
+    pointer-events: none; /* Sørger for at du fortsatt kan styre spillet */
+}
+
+#foreground img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Viktig: Dette må være det samme som på #world */
 }
 
 #player {
