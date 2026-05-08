@@ -28,6 +28,11 @@ body, html {
     z-index: 150;
     pointer-events: none;
     
+    /* Brå overgang: Alt før 65% er borte, alt etter 65% er synlig */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 65%, black 65%);
+    mask-image: linear-gradient(to bottom, transparent 65%, black 65%);
+}
+    
     /* Justerte verdier for å matche din nye grense (-350px) */
     /* Vi starter masken på 55% istedenfor 75% for å dekke mer */
     -webkit-mask-image: linear-gradient(to bottom, transparent 55%, black 70%);
