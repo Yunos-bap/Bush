@@ -79,7 +79,10 @@ function gameLoop() {
     // Oppdatering av skjerm
     world.style.width = currentRoom.width + "px";
     world.style.height = currentRoom.height + "px";
+    // Inne i gameLoop(), finn der du oppdaterer world.style
     world.style.backgroundImage = `url('${currentRoom.bg}')`;
+    // Legg til denne linjen rett under for å oppdatere forgrunnen også:
+    document.getElementById('foreground').style.backgroundImage = `url('${currentRoom.bg}')`;
     world.style.transform = `translate(${camX}px, ${camY}px)`;
     
     player.style.left = posX + 'px';
