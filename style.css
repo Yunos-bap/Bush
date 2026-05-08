@@ -2,7 +2,7 @@ body, html {
     margin: 0; padding: 0;
     width: 100%; height: 100%;
     overflow: hidden;
-    background-color: black; /* Hindrer hvit bakgrunn utenfor bildet */
+    background-color: black;
     touch-action: none;
 }
 
@@ -17,7 +17,23 @@ body, html {
 #world {
     position: absolute;
     background-repeat: no-repeat;
-    background-size: 100% 100%; /* Sørger for at bildet fyller rommet */
+    background-size: 100% 100%;
+}
+
+/* FORGRUNNEN - Dette er laget som ligger foran busken */
+#foreground {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: inherit; /* Bruker samme bilde som #world */
+    background-size: 100% 100%;
+    z-index: 150; /* Høyere enn spilleren (100) */
+    pointer-events: none; /* Gjør at du kan klikke "igjennom" trærne */
+    
+    /* Vi fjerner toppen av bildet slik at bare trærne nederst er synlige */
+    /* Juster 70% hvis du vil at mer eller mindre av trærne skal dekke spilleren */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 70%, black 85%);
+    mask-image: linear-gradient(to bottom, transparent 70%, black 85%);
 }
 
 #player {
@@ -36,12 +52,6 @@ body, html {
 
 img { width: 100%; height: 100%; object-fit: contain; }
 
-.hidden-mode {
-    filter: brightness(0.6);
-    transform: scale(0.95);
-    transition: 0.2s;
-}
-
 #dialog-box {
     position: fixed;
     bottom: 30px;
@@ -55,18 +65,4 @@ img { width: 100%; height: 100%; object-fit: contain; }
     display: none;
     z-index: 2000;
     width: 80%;
-    font-family: sans-serif;
 }
-
-#fade-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: black;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s;
-    z-index: 9999;
-}
-
-#fade-overlay.active { opacity: 1; visibility: visible; }
