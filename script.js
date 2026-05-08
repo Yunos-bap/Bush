@@ -56,7 +56,7 @@ function gameLoop() {
     // 4. Bunn-grense (Trærne på bunnen)
     // Her sier vi at busken kan gå ned til bunnen minus ca. 100 piksler.
     // Dette lar den gå "bak" trærne nederst uten å forsvinne helt.
-    let bottomLimit = currentRoom.height - 300; 
+    let bottomLimit = currentRoom.height - 350; 
     if (posY > bottomLimit) posY = bottomLimit;
     
     // Mannens bevegelse
