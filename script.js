@@ -33,7 +33,7 @@ function gameLoop() {
     if (posX > currentRoom.width - 80) posX = currentRoom.width - 80;
     
     // Bunn-grense: Stopper busken litt før bunnen av bildet
-    let bottomLimit = currentRoom.height - 350; 
+    let bottomLimit = currentRoom.height - 180; 
     if (posY > bottomLimit) posY = bottomLimit;
 
     // Kamera-logikk
