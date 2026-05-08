@@ -19,27 +19,21 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover; 
     background-position: center;
-}
-
+    
 #foreground {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 200; /* Økt z-index for å være helt sikker */
+    z-index: 200;
     pointer-events: none;
-    background-color: transparent; /* Sørger for at det ikke er en hvit boks bak */
 }
 
 #foreground img {
-    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Dette tvinger iPaden til å bruke grafikkortet for å vise bildet */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
 }
 
 #player {
