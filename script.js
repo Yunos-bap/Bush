@@ -2,7 +2,7 @@ const rooms = {
     "skogen": {
         width: 2500, 
         height: 1200,
-        bg: "image/IMG_0596.jpeg"
+        bg: "image/IMG_0613.jpeg"
     }
 };
 
